@@ -56,13 +56,17 @@ const CurrentWeather = ({data}) => {
             </div>
 
             <div className="flex flex-wrap justify-between items-center mt-20">
-                <div className="">
+                <div className="order-last md:order-first">
                     <p className="font-semibold tracking-wider text-md mb-0">{description}</p>
                     <p className="font-thin tracking-wide text-sm mb-1">Feels like {temperature.feelsLike}&deg;F</p>
                 </div>
                 
                 <div>
-                    <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="weatherIcon" />
+                    <img 
+                        src={`https://openweathermap.org/img/wn/${icon}@2x.png`} 
+                        alt="weatherIcon"
+                        className="order-first md:order-last" 
+                    />
                 </div>
             </div>
         </div>

@@ -33,7 +33,7 @@ const Navbar = ({setCoordinate, changeLocation}) => {
         <div className="container mb-7"> 
             <div className="lg:flex lg:flex-wrap justify-between items-baseline px-3">
                 <h1 className="text-2xl text-gray-700 font-bold mb-3 lg:mb-0 text-center lg:text-start">Weatheria</h1>
-                <div className="items-end">
+                <div className="flex items-center justify-center lg:items-end">
                     <form onSubmit={handleSubmit}>
                         <div className="flex">
                             <input 
