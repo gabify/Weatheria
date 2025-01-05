@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Navbar from "./components/navbar"
+import Navbar from "./components/Navbar"
 import Twilight from "./components/Twilight"
 import OtherMetric from "./components/OtherMetric"
 import CurrentWeather from "./components/CurrentWeather"
