@@ -1,33 +1,35 @@
 import { useState } from "react";
 import Image from "../assets/wizard.png"
+import {useWeatherContext} from '../hooks/useWeatherContext'
 
-const Navbar = ({setCoordinate, changeLocation}) => {
-    const [location, setLocation] = useState('')
-    const [error, setError] = useState(null)
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault()
-        setError(null)
+const Navbar = () => {
+    const [locations, setLocations] = useState(null)
+    const [searchQuery, setSearchQuery] = useState('')
+    const {dispatch} = useWeatherContext()
 
-        const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${location}&appid=${import.meta.env.VITE_API_KEY}`)
-
-        const json = await response.json()
-
-        if(!response.ok){
-            setError(json.message)
+    const searchLocation = async(val) =>{
+        setSearchQuery(val)
+        if(val !== ''){
+            const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${val}&limit=5&appid=${import.meta.env.VITE_API_KEY}`)
+            const json = await response.json()
+            setLocations(json)
         }
+    }
 
-        if(response.ok){
-            changeLocation({
-                country: json[0].country,
-                name: json[0].name
-            })
-            setCoordinate({
-                lat: json[0].lat,
-                lon: json[0].lon
-            })
+    const handleSelect = async(lat, lon) =>{
+        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_API_KEY}`)
+        const weather = await weatherResponse.json()
+
+        const weeklyWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_API_KEY}`)
+        const weeklyWeather = await weeklyWeatherResponse.json()
+
+        if(weatherResponse.ok && weeklyWeatherResponse.ok){
+            dispatch({type: 'SET_WEATHER', payload: {weather, weeklyWeather}})
         }
-
+        setLocations(null)
+        setSearchQuery('')
+        
     }
     
     return (
@@ -37,26 +39,29 @@ const Navbar = ({setCoordinate, changeLocation}) => {
                     <h1 className="text-2xl text-gray-700 font-bold mb-3 lg:mb-0 lg:text-start">Weatheria</h1>
                     <img src={Image} alt="wizard" className="w-9" />
                 </div>
-                <div className="flex items-center justify-center lg:items-end">
-                    <form onSubmit={handleSubmit}>
-                        <div className="flex">
-                            <input 
-                                type="text" 
-                                placeholder="Find for your location..."
-                                className="grow border border-3 border-gray-200 rounded-s-2xl px-4 text-gray-800"
-                                onChange={(e) => setLocation(e.target.value)}
-                            />
-                            <input 
-                                type="submit" 
-                                value="Search" 
-                                className="bg-gray-200 py-2 px-7 rounded-e-2xl text-gray-800"
-                            />
-                        </div>
-                    </form>
+                <div className="flex flex-col relative">
+                    <div className="flex items-center">
+                        <input 
+                            type="text" 
+                            placeholder="Search for city or country"
+                            className="grow border border-3 border-gray-200 rounded-lg px-4 py-2 text-gray-800 w-5/6"
+                            onChange={(e) => searchLocation(e.target.value)}
+                            value={(searchQuery)}
+                        />
+                    </div>
+                    <div className="bg-gray-50 rounded-b-2xl absolute top-11 w-full">
+                        {locations && locations.map((location) =>
+                            <div 
+                                key={location.lat + location.lon}
+                                className="mb-2 text-sm p-2 tracking-wide hover:bg-gray-100 cursor-pointer"
+                                onClick={() => handleSelect(location.lat, location.lon)}
+                            >
+                                {location.name}, {location.country}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-
-            <div>{error && error}</div>
         </div>
      );
 }

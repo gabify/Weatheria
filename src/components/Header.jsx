@@ -34,7 +34,9 @@ const Header = ({location}) => {
 
     return ( 
         <div>
-            <h2 className="text-xl text-gray-800 tracking-wide">Forecast in <span className="font-semibold">{location.name}, {location.country}</span></h2>
+            {location ? (
+                <h2 className="text-xl text-gray-800 tracking-wide">Forecast in <span className="font-semibold">{location.name}, {location.country}</span></h2>
+            ) : <h2 className="text-xl text-gray-800 tracking-wide">Forecast in <span className="font-semibold">Loading...</span></h2>}
             <p className="text-md mt-1 font-thin mb-9">{getToday()}</p>
         </div>
      );
