@@ -52,3 +52,7 @@ This project is still ongoing and it needs a massive improvement!
 
 ## Like this project?
 If you like this project, you can give it a star. I'm still learning how to code so a few motivation will help! 🥺
+
+## Speacial Thanks
+This section is dedicated for the opne source component I used in this app
+[Wizard icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/wizard)

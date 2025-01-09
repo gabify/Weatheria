@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "../assets/wizard.png"
 
 const Navbar = ({setCoordinate, changeLocation}) => {
     const [location, setLocation] = useState('')
@@ -32,7 +33,10 @@ const Navbar = ({setCoordinate, changeLocation}) => {
     return (
         <div className="container mb-7"> 
             <div className="lg:flex lg:flex-wrap justify-between items-baseline px-3">
-                <h1 className="text-2xl text-gray-700 font-bold mb-3 lg:mb-0 text-center lg:text-start">Weatheria</h1>
+                <div className="flex gap-2 items-baseline justify-center">
+                    <h1 className="text-2xl text-gray-700 font-bold mb-3 lg:mb-0 lg:text-start">Weatheria</h1>
+                    <img src={Image} alt="wizard" className="w-9" />
+                </div>
                 <div className="flex items-center justify-center lg:items-end">
                     <form onSubmit={handleSubmit}>
                         <div className="flex">

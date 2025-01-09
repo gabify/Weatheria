@@ -83,7 +83,7 @@ function App() {
   }, [coordinate])
 
   return (
-    <section className="main py-12 px-12 md:px-24">
+    <section className="main py-10 px-12 md:px-24">
         <Navbar 
           setCoordinate={setCoordinate}
           changeLocation={setLocation}

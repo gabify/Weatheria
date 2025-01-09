@@ -37,9 +37,9 @@ const CurrentWeather = ({data}) => {
     }, [data])
 
     return ( 
-        <div className="card bg-cyan-200 col-span-3 lg:col-span-4 p-4">
+        <div className="card-weather bg-cyan-200 col-span-3 lg:col-span-4 p-4">
             <div className="flex justify-between items-center mb-12">
-                <div className="flex gap-1">
+                <div className="flex gap-1 text-gray-900">
                     <h3 className="text-4xl font-semibold">{temperature.temp}&deg;F</h3>
                     <span className="font-thin">/c</span>
                 </div>

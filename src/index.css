@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.card-weather{
+    @apply shadow-md rounded-xl h-64 sm:h-80 lg:h-64;
+}
+
 .card{
     @apply shadow-md rounded-xl;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Sunrise  from '../assets/sunrise.jpg'
 
 const Twilight = ({data}) => {
     const [sunrise, setSunrise] = useState('')
@@ -24,14 +25,17 @@ const Twilight = ({data}) => {
 
 
     return ( 
-        <div className="card bg-cyan-200 col-span-3 p-10">
-            <div className="text-center mb-8">
-                <p className="font-normal text-lg tracking-wide">Sunrise</p>
-                <p className="text-2xl font-medium">{sunrise}</p>
-            </div>
-            <div className="text-center">
-                <p className="font-normal text-lg tracking-wide">Sunset</p>
-                <p className="text-2xl font-medium">{sunset}</p>
+        <div className="card-weather col-span-3 relative">
+            <img src={Sunrise} alt="sunrise" className="absolute inset-0 h-full w-full rounded-lg object-cover"/>
+            <div className="absolute inset-0 top-11">
+                <div className="text-center mb-9">
+                    <p className="font-normal text-lg tracking-wide text-gray-50">Sunrise</p>
+                    <p className="text-2xl font-medium">{sunrise}</p>
+                </div>
+                <div className="text-center">
+                    <p className="font-normal text-lg tracking-wide">Sunset</p>
+                    <p className="text-2xl font-medium">{sunset}</p>
+                </div>
             </div>
         </div>
      );
