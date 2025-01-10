@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react"
 
-const Header = ({location}) => {
-    const [today, setToday] = useState(new Date())
+const Header = ({location, dateTime, timezone}) => {
 
-    useEffect(() =>{
-        const interval = setInterval(() =>{
-            setToday(new Date())
-        }, 1000)
+    const getDateTime = (timestamp, timezone) =>{
+        const date = new Date(timestamp * 1000)
+        const today = new Date(date.getTime() + timezone * 1000)
 
-        return () =>clearInterval(interval)
-    }, [])
 
-    const getToday = () =>{
         //Get the day of the week
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         const dayToday = days[today.getDay()]
@@ -34,10 +29,8 @@ const Header = ({location}) => {
 
     return ( 
         <div>
-            {location ? (
-                <h2 className="text-xl text-gray-800 tracking-wide">Forecast in <span className="font-semibold">{location.name}, {location.country}</span></h2>
-            ) : <h2 className="text-xl text-gray-800 tracking-wide">Forecast in <span className="font-semibold">Loading...</span></h2>}
-            <p className="text-md mt-1 font-thin mb-9">{getToday()}</p>
+            <h2 className="text-xl text-gray-800 tracking-wide">Forecast in <span className="font-semibold">{location && `${location.name}, ${location.country}`}</span></h2>
+            <p className="text-md mt-1 font-thin mb-9">{dateTime && getDateTime(dateTime, timezone)}</p>
         </div>
      );
 }

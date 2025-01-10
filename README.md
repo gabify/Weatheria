@@ -48,7 +48,6 @@ If you like to submit a PR with a fix, reference the issue you created.
 This project is still ongoing and it needs a massive improvement!
 
 1. No error handling: It does not have a user-friendly error message or template
-2. Search bar is not intuitive: The search bar accepts any input, even a bunch of garbage text
 
 ## Like this project?
 If you like this project, you can give it a star. I'm still learning how to code so a few motivation will help! 🥺

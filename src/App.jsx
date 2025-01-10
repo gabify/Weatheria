@@ -10,11 +10,6 @@ import { useWeatherContext } from "./hooks/useWeatherContext"
 function App() {
   const {data} = useWeatherContext()
   const [isLoading, setIsLoading] = useState(null)
-  const [error, setError] = useState(null)
-  const [coordinate, setCoordinate] = useState({
-    lat: 13.7558718,
-    lon: 121.0584755
-  })
   const [location, setLocation] = useState(null)
   const [twilightData, setTwilightData] = useState(null)
   const [currentWeatherData, setCurrentWeatherData] = useState(null)
@@ -26,6 +21,7 @@ function App() {
     if(data){
       setIsLoading(false)
       const twilightData = {
+        timezone_offset: data.weather.timezone,
         sunrise: data.weather.sys.sunrise,
         sunset: data.weather.sys.sunset
       }
@@ -67,6 +63,8 @@ function App() {
             <div className="lg:col-span-2 card p-5 bg-gray-50">
               <Header
                 location={location}
+                dateTime={data.weather.dt}
+                timezone={data.weather.timezone}
               />
               
               <div className="grid grid-cols-1 lg:grid-cols-10 gap-2 mb-6">
@@ -80,39 +78,15 @@ function App() {
               </div>
             </div>
             <div className=" card px-8 py-6 lg:col-span-1 bg-gray-50">
-              <h4 className="text-center text-xl text-gray-700 font-bold">Weekly Forecasts</h4>
+              <h4 className="text-xl text-gray-700 font-bold">Weekly Forecasts</h4>
               {weeklyWeather && weeklyWeather.map((forecast) =>(
                     <WeeklyForecastItem key={forecast.dt} data={forecast}/>
                 ))}
             </div>
           </div>
         ) : (
-          <p>Please search for a city or country</p>
+          <p className="text-center font-light tracking-wide my-5">Please search for a city or country</p>
         )}
-
-        {/* <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
-          <div className="lg:col-span-2 card p-5 bg-gray-50">
-            <Header
-              location={{name:weather.name, country: weather.sys.country}}
-            />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-10 gap-2 mb-6">
-              <CurrentWeather
-                  data={currentWeatherData}
-              />
-              <OtherMetric 
-                data={otherMetricsData}
-              />
-              <Twilight data={twilightData}/>
-            </div>
-          </div>
-          <div className=" card px-8 py-6 lg:col-span-1 bg-gray-50">
-            <h4 className="text-center text-xl text-gray-700 font-bold">Weekly Forecasts</h4>
-            {weeklyWeather && weeklyWeather.map((forecast) =>(
-                  <WeeklyForecastItem key={forecast.dt} data={forecast}/>
-              ))}
-          </div>
-        </div> */}
 
         <p className="text-sm font-sans font-semibold mt-3 text-center"
         >
